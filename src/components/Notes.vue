@@ -10,7 +10,7 @@ function getRandomColor() {
 
 const addNote = ()=>{
   notes.value.push({
-    id:Math.floor(Math.random()*100000),
+    id:notes.value.length,
     text:newNote.value,
     date:new Date(),
     backgroundcolor :getRandomColor()
@@ -19,6 +19,13 @@ const addNote = ()=>{
   //setting the text area state to null
   newNote.value=" "
 }
+
+const deleteNote = (noteId) => {
+  const index = notes.value.findIndex((note) => note.id === noteId);
+  if (index !== -1) {
+    notes.value.splice(index, 1);
+  }
+};
 
 </script>
 
@@ -49,11 +56,14 @@ const addNote = ()=>{
 
           <div 
           v-for="note in notes" 
+          :key="note.id"
           class="card"
            :style="{backgroundColor: note.backgroundcolor}"
            >
+           <p>{{ note.id }}</p>
             <p class="main-text">{{ note.text }}</p>
             <p class="date">{{ note.date.toLocaleDateString("en-US")}}</p>
+            <button @click="deleteNote(note.id)">Delete</button>
           </div>
         </div>
       </div>
