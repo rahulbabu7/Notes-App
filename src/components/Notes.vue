@@ -1,16 +1,50 @@
+<script setup>
+import {ref} from 'vue';
+
+const showModel = ref(false)
+const newNote = ref(" ")
+const notes = ref([])
+function getRandomColor() {
+ return  "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+}
+
+const addNote = ()=>{
+  notes.value.push({
+    id:Math.floor(Math.random()*100000),
+    text:newNote.value,
+    date:new Date(),
+    backgroundcolor :getRandomColor()
+  })
+  showModel.value = false  //after adding the note we dont need to display the model box
+  //setting the text area state to null
+  newNote.value=" "
+}
+
+</script>
+
 <template>
     <main>
-      <!-- <div class="overlay">
+      <div v-if="showModel" class="overlay">
+        <div class="modal">
+          <textarea v-model ="newNote" name="note" id="note" cols="30" rows="10"></textarea>
+          <button @click="addNote">Add Note</button>
+          <button class="close" @click="showModel = false">Close</button>
+        </div>
+        <!--   details in my notion
+
+          <div v-show="showModel" class="overlay">
         <div class="modal">
           <textarea name="note" id="note" cols="30" rows="10"></textarea>
           <button>Add Note</button>
-          <button class="close">Close</button>
-        </div>
-      </div> -->
+          <button class="close" @click="showModel = false">Close</button>
+        </div> 
+      -->
+      </div>  
       <div class="container">
         <header>
+          {{ notes }}
           <h1>Notes</h1>
-          <button>+</button>
+          <button @click="showModel = true">+</button>
         </header>
         <div class="cards-container">
           <div class="card">
