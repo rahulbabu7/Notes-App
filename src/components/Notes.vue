@@ -3,12 +3,17 @@ import {ref} from 'vue';
 
 const showModel = ref(false)
 const newNote = ref(" ")
+const errorMsg = ref(false)
 const notes = ref([])
 function getRandomColor() {
  return  "hsl(" + Math.random() * 360 + ", 100%, 75%)";
 }
 
 const addNote = ()=>{
+  if (newNote.value.length <10){
+    errorMsg.value = true
+}
+else{
   notes.value.push({
     id:notes.value.length,
     text:newNote.value,
@@ -18,7 +23,11 @@ const addNote = ()=>{
   showModel.value = false  //after adding the note we dont need to display the model box
   //setting the text area state to null
   newNote.value=" "
+  errorMsg.value = false
+
 }
+  }
+
 
 const deleteNote = (noteId) => {
   const index = notes.value.findIndex((note) => note.id === noteId);
@@ -33,7 +42,8 @@ const deleteNote = (noteId) => {
     <main>
       <div v-if="showModel" class="overlay">
         <div class="modal">
-          <textarea v-model ="newNote" name="note" id="note" cols="30" rows="10"></textarea>
+          <textarea v-model.trim ="newNote" name="note" id="note" cols="30" rows="10"></textarea>
+          <h3 v-if="errorMsg"> Length of the note should be greater than 9</h3>
           <button @click="addNote">Add Note</button>
           <button class="close" @click="showModel = false">Close</button>
         </div>
@@ -165,6 +175,9 @@ const deleteNote = (noteId) => {
     .modal .close {
       background-color: rgb(193, 15, 15);
       margin-top: 7px;
+    }
+    .modal h3{
+      color: red;
     }
 
   </style>
