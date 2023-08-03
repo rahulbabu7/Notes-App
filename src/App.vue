@@ -6,6 +6,3 @@ import Notes from './components/Notes.vue'
 <Notes/>
 </template>
 
-<style scoped>
-
-</style>

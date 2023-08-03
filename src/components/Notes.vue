@@ -60,7 +60,7 @@ const deleteNote = (noteId) => {
           class="card"
            :style="{backgroundColor: note.backgroundcolor}"
            >
-           <p>{{ note.id }}</p>
+           
             <p class="main-text">{{ note.text }}</p>
             <p class="date">{{ note.date.toLocaleDateString("en-US")}}</p>
             <button @click="deleteNote(note.id)">Delete</button>
@@ -75,11 +75,11 @@ const deleteNote = (noteId) => {
       height: 100vh;
       width: 100vw
     }
-  
+
     .container {
       max-width: 1000px;
       padding: 10px;
-      margin: 0 auto
+      margin: 0 auto;
     }
   
     header {
@@ -92,6 +92,7 @@ const deleteNote = (noteId) => {
       font-weight: bold;
       margin-bottom: 25px;
       font-size: 75px;
+      color: rgb(0, 0, 0);
     }
   
     header button {
@@ -165,4 +166,5 @@ const deleteNote = (noteId) => {
       background-color: rgb(193, 15, 15);
       margin-top: 7px;
     }
+
   </style>
